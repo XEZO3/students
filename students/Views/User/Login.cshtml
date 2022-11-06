@@ -1,4 +1,8 @@
 ﻿<div class="container" >
+    @if (ViewBag.error != null)
+    {
+        <div class="text-danger">@ViewBag.error</div>
+    }
 <form asp-action="Login">
     <div class="mb-3">
         <label>UserName</label>

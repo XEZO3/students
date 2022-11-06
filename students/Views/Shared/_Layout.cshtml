@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@inject IHttpContextAccessor session
+@inject UserManager<userAuth> userManger
+@inject SignInManager<userAuth> SignInManger
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +31,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                        </li>
+                        @if (SignInManger.IsSignedIn(User))
+                        {
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" >Welcome @userManger.GetUserName(User)</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+                        </li>
+                        }else{
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                        </li>
+                       
+                        }
                     </ul>
                 </div>
             </div>

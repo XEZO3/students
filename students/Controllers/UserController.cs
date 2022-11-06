@@ -28,16 +28,59 @@ namespace students.Controllers
         public async Task<IActionResult> login(LoginVM login) 
         {
             var username = await _UserManager.FindByNameAsync(login.username);
-            var signin = await _signInManager.PasswordSignInAsync(username, login.password,true,false);
-            if (signin.Succeeded) {
-                return RedirectToAction("Index","Home");
+            if (username != null)
+            {
+                var signin = await _signInManager.PasswordSignInAsync(username, login.password, true, false);
+                if (signin.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.error = "username or password is in correct";
+                    return View("Login", "User");
+                }
+            }
+            else {
+                ViewBag.error = "username or password is in correct";
+                return View("Login", "User");
+            }
+            
+        }
+        [HttpGet]
+        public IActionResult Register() {
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(registerVM registerVM) {
+            userAuth user = new userAuth()
+            {
+                Name = registerVM.Name,
+                Email = registerVM.Email,
+                UserName = registerVM.UserName,
+                EmailConfirmed = true,
+                LockoutEnabled= true
+            };
+            var result = await _UserManager.CreateAsync(user, registerVM.Password);
+            if (result.Succeeded)
+            {
+                await _UserManager.AddToRoleAsync(user, students.utility.utility.User_role);
+                return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewBag.error = "username or password is in correct";
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("CustomError", error.Description);
+                }
                 return View();
             }
-            
+            return View();
+        }
+        public async Task<IActionResult> Logout() {
+           await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }

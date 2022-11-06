@@ -24,6 +24,7 @@ builder.Services.AddTransient<IDbInit,DbInit>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/login";
+    options.AccessDeniedPath = "/home/privacy";
 });
 
 
