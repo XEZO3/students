@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using students.Data;
 using students.Models;
+using students.IServices;
+using students.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +19,17 @@ builder.Services.AddDbContext<StudentContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
 });
 builder.Services.AddIdentity<userAuth, IdentityRole>().AddEntityFrameworkStores<StudentContext>();
-var app = builder.Build();
+builder.Services.AddTransient<IDbInit,DbInit>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/User/login";
+});
+
+
+var app = builder.Build();
+using var scope =  app.Services.CreateScope();
+scope.ServiceProvider.GetRequiredService<IDbInit>().Init();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -31,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

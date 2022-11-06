@@ -24,7 +24,7 @@ namespace students.Services
             {
                 _context.Database.Migrate();
             }
-            if (_UserManager.Users.Any()) 
+            if (!_UserManager.Users.Any()) 
             {
                await _roleManager.CreateAsync(new IdentityRole(utility.utility.Admin_role));
                await _roleManager.CreateAsync(new IdentityRole(utility.utility.User_role));
@@ -39,6 +39,18 @@ namespace students.Services
                 };
               await  _UserManager.CreateAsync(user, "Test@1234");
               await  _UserManager.AddToRoleAsync(user,utility.utility.Admin_role);
+            }
+            if (!_context.Courses.Any()) {
+                Courses courses = new Courses()
+                {
+                    CreatDate = DateTime.Now,
+                    Price= 200,
+                    Duration = 5,
+                    Description = "full stack development",
+                    Name ="web development"
+                };
+                _context.Courses.Add(courses);
+                _context.SaveChanges();
             }
         }
     }

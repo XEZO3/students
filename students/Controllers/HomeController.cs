@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using students.Models;
 using System.Diagnostics;
 
@@ -13,7 +14,7 @@ namespace students.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize(Roles ="Admin")]
         public IActionResult Index()
         {
             return View();

@@ -19,7 +19,7 @@ namespace students.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer("Server=DESKTOP-JD76U9C;Database=Students;Trusted_Connection=True");
+            builder.UseSqlServer("Server=LAPTOP-BFFJ9SQ9;Database=Students;Trusted_Connection=True");
         }
     }
 }
