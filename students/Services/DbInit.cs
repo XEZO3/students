@@ -28,6 +28,7 @@ namespace students.Services
             {
                await _roleManager.CreateAsync(new IdentityRole(utility.utility.Admin_role));
                await _roleManager.CreateAsync(new IdentityRole(utility.utility.User_role));
+                
                 userAuth user = new userAuth()
                 {
                     Email = "admin@admin.com",

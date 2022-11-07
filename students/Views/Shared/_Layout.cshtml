@@ -3,7 +3,7 @@
 @inject IHttpContextAccessor session
 @inject UserManager<userAuth> userManger
 @inject SignInManager<userAuth> SignInManger
-
+@inject RoleManager<IdentityRole> _roleManager;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,42 +17,62 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">students</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                        </li>
-                        @if (SignInManger.IsSignedIn(User))
-                        {
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" >Welcome @userManger.GetUserName(User)</a>
-                        </li> 
-                        <li class="nav-item">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">students</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    @if (SignInManger.IsSignedIn(User)) {
+                            if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="">Welcome Admin @userManger.GetUserName(User) </a>
+                                </li>
+                            }
+                            else { 
+                            <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="">Welcome  @userManger.GetUserName(User) </a>
+                                </li>
+                            }
+                            <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
-                        }else{
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-                        </li>
-                       
-                        }
-                    </ul>
-                </div>
+                    }else{
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">login</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="register">register</a>
+                     </li>
+                    
+                    }
+
+                    @*<li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="">Welcome @Model</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+                    </li>*@
+
+
+
+
+                </ul>
             </div>
+        </div>
         </nav>
+        
+        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">
