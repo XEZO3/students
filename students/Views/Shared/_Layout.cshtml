@@ -23,7 +23,7 @@
         <nav class="navbar  bg-dark navbar-dark">
             <div class="container-fluid">
               
-            <a class="navbar-brand ms-auto me-auto" href="index.html" style="font-weight:bold ;font-size: 30px;"><span style="color: #62C0E9;">ONE</span><span style="color: white;">CODE</span></a>
+            <a class="navbar-brand ms-auto me-auto"  style="font-weight:bold ;font-size: 30px;" asp-action="Index" asp-controller="Home"><span style="color: #62C0E9;">ONE</span><span style="color: white;">CODE</span></a>
             <a style="text-decoration: none;color:none;margin-right: 2rem;" asp-action="Index" asp-controller="cart"><span style="color:white"><i class="fa-solid fa-cart-shopping fa-lg"></i><span id="counter">@session.HttpContext.Session.GetInt32("cart")</span></span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon" ></span>
@@ -42,10 +42,10 @@
                                     <a class="nav-link" asp-area="" asp-action="Index" asp-controller="UserAdmin">users</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link " asp-area="" asp-action="Index" asp-controller="Category">Category</a>
+                                    <a class="nav-link " asp-area="" asp-action="Index" asp-controller="CategoryAdmin">Category</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link " asp-area="" asp-action="Index" asp-controller="Courses">Courses</a>
+                                    <a class="nav-link " asp-area="" asp-action="Index" asp-controller="CoursesAdmin">Courses</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link " asp-area="" asp-action="Index" asp-controller="CoursesAdminVideo">CoursesVideo</a>

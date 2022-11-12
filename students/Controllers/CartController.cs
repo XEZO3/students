@@ -25,7 +25,8 @@ namespace students.Controllers
             var userId = _UserManager.GetUserId(User);
             
             
-            var cartitem = _context.Cart.Include(x => x.cartItem).ThenInclude(x => x.Courses).FirstOrDefault(x => x.UserId == userId).cartItem.ToList();
+            var cartitem = _context.Cart.Include(x => x.cartItem).ThenInclude(x => x.Courses).FirstOrDefault(x => x.UserId == userId)?.cartItem.ToList();
+            cartitem = cartitem == null ? new List<cartItem> : cartitem;
             if (isajax)
             {
 
