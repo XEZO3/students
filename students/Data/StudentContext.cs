@@ -17,7 +17,7 @@ namespace students.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserCourses> UserCourses { get; set; }
 
-        public DbSet<UserCourses> CoursesVideo { get; set; }
+        public DbSet<CoursesVideo> CoursesVideo { get; set; }
         
         //public DbSet<OrderItem> orderItems { get; set; }
 
@@ -29,6 +29,6 @@ namespace students.Data
         }
         //public DbSet<OrderItem> orderItems { get; set; }
 
-        public DbSet<students.Models.CoursesVideo> CoursesVideo { get; set; }
+       
     }
 }

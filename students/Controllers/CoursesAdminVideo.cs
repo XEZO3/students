@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using students.Data;
 using students.Models;
 
@@ -17,7 +18,7 @@ namespace students.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var videos = _context.CoursesVideo.ToList();
+            var videos = _context.CoursesVideo.Include(x=>x.courses).ToList();
             return View(videos);
         }
 
