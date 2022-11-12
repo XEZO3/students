@@ -24,5 +24,8 @@ namespace students.Data
             //LAPTOP-BFFJ9SQ9
             builder.UseSqlServer("Server=DESKTOP-JD76U9C;Database=Students;Trusted_Connection=True");
         }
+        //public DbSet<OrderItem> orderItems { get; set; }
+
+        public DbSet<students.Models.CoursesVideo> CoursesVideo { get; set; }
     }
 }

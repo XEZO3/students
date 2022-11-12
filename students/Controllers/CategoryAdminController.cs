@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using students.Data;
 using students.Models;
@@ -14,7 +15,7 @@ namespace students.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             List<Category> category = _context.Categories.ToList();
