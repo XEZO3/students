@@ -71,8 +71,7 @@ namespace students.Controllers
         }
 
         // POST: CoursesAdminVideo/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         
     }
 }
