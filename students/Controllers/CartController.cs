@@ -22,8 +22,8 @@ namespace students.Controllers
         public async Task<IActionResult> Index(bool isajax)
         {
             var userId = _UserManager.GetUserId(User);
-            int count = _context.Cart.Include(x => x.cartItem).FirstOrDefault(x => x.UserId == userId).cartItem.Count();
-            HttpContext.Session.SetInt32("cart", count);
+            
+            
             var cartitem = _context.Cart.Include(x => x.cartItem).ThenInclude(x => x.Courses).FirstOrDefault(x => x.UserId == userId).cartItem.ToList();
             if (isajax)
             {
