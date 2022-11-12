@@ -16,6 +16,9 @@ namespace students.Data
         public DbSet<cartItem> cartItem { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserCourses> UserCourses { get; set; }
+
+        public DbSet<UserCourses> CoursesVideo { get; set; }
+        
         //public DbSet<OrderItem> orderItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
