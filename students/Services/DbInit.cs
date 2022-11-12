@@ -41,16 +41,50 @@ namespace students.Services
               await  _UserManager.CreateAsync(user, "Test@1234");
               await  _UserManager.AddToRoleAsync(user,utility.utility.Admin_role);
             }
-            if (!_context.Courses.Any()) {
-                Courses courses = new Courses()
+            if (!_context.Categories.Any())
+            {
+                Category category = new Category()
                 {
                     CreatDate = DateTime.Now,
-                    Price= 200,
+                   
+                    Name = "web development"
+                };
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+            }
+            if (!_context.Courses.Any()) {
+                Category category = _context.Categories.FirstOrDefault();
+                List<Courses> courses = new List<Courses>()
+                {
+                    new Courses(){
+                    CreatDate = DateTime.Now,
+                    Price = 200,
                     Duration = 5,
                     Description = "full stack development",
-                    Name ="web development"
+                    Name = "asp full stack",
+                    CategoryId = category.Id,
+                    ImageUrl = "python.png"
+                    },
+                    new Courses(){
+                    CreatDate = DateTime.Now,
+                    Price = 200,
+                    Duration = 5,
+                    Description = "full stack development",
+                    Name = "asp full stack",
+                    CategoryId = category.Id,
+                    ImageUrl = "python.png"
+                    },
+                    new Courses(){
+                    CreatDate = DateTime.Now,
+                    Price = 200,
+                    Duration = 5,
+                    Description = "full stack development",
+                    Name = "asp full stack",
+                    CategoryId = category.Id,
+                    ImageUrl = "python.png"
+                    }
                 };
-                _context.Courses.Add(courses);
+                _context.Courses.AddRange(courses);
                 _context.SaveChanges();
             }
         }

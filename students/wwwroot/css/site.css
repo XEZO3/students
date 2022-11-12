@@ -14,5 +14,34 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
+  padding:0;
 }
+.loader {
+    position: fixed;
+    background-color: black;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    transition: 20s;
+}
+
+    .loader.complete {
+        left: -100%;
+    }
+
+.load {
+    position: absolute;
+    top: 33%;
+    left: 43%;
+}
+
+.option {
+    position: absolute;
+    top: -35%;
+    right: 12%;
+}
+
+
+
+

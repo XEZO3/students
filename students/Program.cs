@@ -18,9 +18,14 @@ builder.Services.AddDbContext<StudentContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
 });
-builder.Services.AddIdentity<userAuth, IdentityRole>().AddEntityFrameworkStores<StudentContext>();
+builder.Services.AddIdentity<userAuth, IdentityRole>().AddEntityFrameworkStores<StudentContext>().AddDefaultTokenProviders(); ;
 builder.Services.AddTransient<IDbInit,DbInit>();
-
+builder.Services.AddScoped<students.IServices.IFile, students.Services.Files>();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(50);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/login";
@@ -38,10 +43,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

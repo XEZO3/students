@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using students.Data;
 using students.Models;
 using students.Models.VM;
+using System.Security.Claims;
 
 namespace students.Controllers
 {
@@ -33,7 +34,8 @@ namespace students.Controllers
                 var signin = await _signInManager.PasswordSignInAsync(username, login.password, true, false);
                 if (signin.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                   
+                    return RedirectToAction("Index", "Home");  
                 }
                 else
                 {

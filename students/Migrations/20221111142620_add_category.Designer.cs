@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using students.Data;
 
@@ -11,9 +12,10 @@ using students.Data;
 namespace students.Migrations
 {
     [DbContext(typeof(StudentContext))]
-    partial class StudentContextModelSnapshot : ModelSnapshot
+    [Migration("20221111142620_add_category")]
+    partial class add_category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -340,39 +342,7 @@ namespace students.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("students.Models.UserCourses", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoursesId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("students.Models.userAuth", b =>
@@ -473,36 +443,6 @@ namespace students.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("cart");
-                });
-
-            modelBuilder.Entity("students.Models.Courses", b =>
-                {
-                    b.HasOne("students.Models.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("category");
-                });
-
-            modelBuilder.Entity("students.Models.UserCourses", b =>
-                {
-                    b.HasOne("students.Models.Courses", "courses")
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("students.Models.userAuth", "userAuth")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("courses");
-
-                    b.Navigation("userAuth");
                 });
 
             modelBuilder.Entity("students.Models.cart", b =>

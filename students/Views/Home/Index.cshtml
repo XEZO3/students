@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+@model IEnumerable<Courses>
+<style>
+    .fixed-btn{
+        width:fit-content;
+        left:47%; color: #62C0E9;
+        position: absolute;
+        font-size: 40px;
+        background-color: white;
+        border-radius: 20px;
+         border: none;
+      }
+      body{
+        background-color:#62C0E9
+      }
+      .head{
+        background-color: white;
+      }
+      .book{
+      width:200px;
+      height:200px
+      }
+      a:hover{
+      color:#62C0E9;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+      }
+      
+</style>
+<div class="container-fluid position-relative head justify-content-center" style="height: 500px;E" >
+          <div
+            class="row align-items-center justify-content-between text-dark"
+            style="min-height: 50vh">
+            <div class="col-md-5 ms-5 ps-5">
+              <span style="font-size: 60px;display: block;font-weight:bold">ONLINE COURSES</span>
+              <small>NOW ON <span style="color: #62C0E9;font-weight:bold">ONE</span><span style="color: black;">CODE</span></small>
+            </div>
+            <div class="col-md-5 ms-auto ps-auto ">
+              <button  class="btn btnf" style="margin-left: 11rem;">GET STARTED</button>
+            </div>
+          </div>
+          <img class="position-absolute  start-50 translate-middle" style="width:100%;top:105%" src="~/images/main/row2.png">
+          
+        </div>
+        <div class="container-fluid " style="margin-top: 10rem;margin-bottom: 5rem;">
+            <h1>last inserted courses</h1>
+          <div class="row">
+        @foreach(var item in Model)
+        {
+            <a  style="text-decoration:none" class="col text-center mt-3" asp-action="Details" asp-controller="courses" asp-route-id="@item.Id">
+            
+              <img class="book" src="/images/courses/@item.ImageUrl">
+              <h3 style="color: white;">@item.Name</h3>
+            
+            </a>
+        }
+       
+            
+          </div>
+          
+          <div class="row position-relative " style="margin-top: 7rem;">
+            <a style="text-decoration:none" class="fixed-btn" asp-action="Index" asp-controller="courses">MORE</a>
+          </div>
+            
+
+        </div>
+
+        <div class="container-fluid ms-auto" style="margin-top: 10rem;margin-bottom: 5rem;">
+          <div class="row">
+            <div class="col">
+              <span style="color: white;font-size: 50px;font-weight: bold;">ABOUT US</span>
+              <p style="font-size: 23px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, velit voluptas nobis doloribus quam eaque accusamus veritatis expedita. Temporibus possimus tenetur voluptatibus minima voluptas omnis odio error provident consectetur optio officia soluta non sint, debitis repellat sed maiores, ullam nulla beatae? Pariatur magnam beatae possimus aliquid perspiciatis molestiae alias facilis? Doloribus porro eos corrupti quam rerum ipsa nam ipsam, facilis pariatur totam enim corporis tempora natus rem similique dolores inventore adipisci blanditiis hic consequuntur alias harum minus sapiente minima! Commodi quis itaque, libero quae quibusdam cupiditate a explicabo eum omnis eligendi eaque rerum minima facilis. Illum nobis perspiciatis aliquam velit!</p>
+            </div>
+            <div class="col">
+              <iframe style="margin-top: 5rem;margin-left:5rem" width="560" height="315" src="https://www.youtube.com/embed/MAlSjtxy5ak" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            </div>
+          </div>

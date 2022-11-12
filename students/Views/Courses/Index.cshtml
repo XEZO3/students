@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Courses>
+<style>
+    body{
+    background-color: #ECF7FB;
+    }
+</style>
+<div class="container shadow mb-2 bg-white "style="height:10rem">
+        <form asp-action="filter">
+            <div class="row mt-5 pt-5">
+                <div class="col-3">
+                    <label>Name</label>
+                    <input onblur="filterCourses(value)" type="text" name="Name" class="form-control" />
+                </div>
+                <div class="col-3">
+                <label>price</label>
+                 <input type="number" name="Price" class="form-control"/>
+                </div>
+                <div class="col-3">
+                    <label>category</label>
+                  <select asp-for="@Model.FirstOrDefault().CategoryId" class="form-control" asp-items="ViewBag.CategoryId" ></select>
+                </div>
+                
+            </div>
+            
+                  
+           
+        </form>
+    </div>
+<div class="container">
+    
+    <div class="row" id="returne" >
+        
+         
+            <partial name="_partialcourses" for="@Model" ></partial>
+       
+        
+        
+    </div>
+</div>

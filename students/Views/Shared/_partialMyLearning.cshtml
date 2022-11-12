@@ -1,0 +1,21 @@
+﻿@model IEnumerable<UserCourses>
+
+
+@foreach (var item in Model)
+{
+ <div class="col mt-3">
+    <div class='card shadow ' style='width: 20rem;border:none'>
+        <img src='~/images/courses/@item.courses.ImageUrl' style="max-width:100%;min-width:100%;max-height:13rem;min-height:13rem" class='card-img-top' alt='...'>
+        <div class='card-body'>
+            <h5 class='card-title'>@item.courses.Name</h5>
+           
+           <div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+         <a class="btn btn-primary mt-2">continue</a>
+
+        </div>
+    </div>
+    </div>
+}
+

@@ -1,0 +1,66 @@
+﻿@model Courses
+
+<style>
+        #container {
+    position: relative;
+    height: 500px;
+}
+
+.card {
+    background-color: #1C1D1F;
+}
+
+.option {
+    color: black;
+}
+.header {
+    color: white;
+    background-color: #1C1D1F;
+    width:100%;
+}
+    </style>
+        
+       
+       
+        <header class="header" >
+          <div class="container-fluid header" style="width:50rem;">
+            <h1> @Html.DisplayFor(modelItem => Model.Name)</h1>
+            <p>@Html.DisplayFor(modelItem => Model.Description)</p>
+            <div class="card " style="border: none;">
+              <div class="d-flex align-items-center">
+                  <div class="ratings">
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star"></i>
+                  </div>
+                  <h5 class="review-count text-white ms-3 mt-2">600 Reviews</h5>
+              </div>
+          </div>
+          <span>create by : ezaldeen</span><br>
+          <span>last Update: 10/11/2022</span>
+          <span class="ms-3"><i class="fa-sharp fa-solid fa-globe me-1"></i>English</span>
+          </div>
+        </header>
+        <div class="container-fluid" id="container">
+          <div class="option">
+          <div class="card shadow" style="width: 18rem;background-color: white;border: none;">
+            <img src="~/images/courses/@Html.DisplayFor(modelItem => Model.ImageUrl)" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">@Html.DisplayFor(modelItem => Model.Name)</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Add to cart</a>
+              <a href="#" class="btn btn-primary">enroll</a>
+            </div>
+          </div>
+         
+        </div>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-auto  justify-content-center shadow" style="width:50rem">
+            <h3>what you will learn</h3>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui sint eveniet adipisci ex reiciendis? Beatae repellat fugiat sunt unde tempora.</p>
+          </div>
+          
+        </div>
+      </div>
