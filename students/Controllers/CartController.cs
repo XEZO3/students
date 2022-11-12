@@ -19,6 +19,7 @@ namespace students.Controllers
             _signInManager = signInManager;
             _UserManager = userManager;
         }
+        [Authorize(Roles ="User")]
         public async Task<IActionResult> Index(bool isajax)
         {
             var userId = _UserManager.GetUserId(User);
