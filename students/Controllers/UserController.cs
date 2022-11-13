@@ -68,7 +68,7 @@ namespace students.Controllers
             if (result.Succeeded)
             {
                 await _UserManager.AddToRoleAsync(user, students.utility.utility.User_role);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login");
             }
             else
             {
@@ -78,7 +78,7 @@ namespace students.Controllers
                 }
                 return View();
             }
-            return View();
+            
         }
         public async Task<IActionResult> Logout() {
            await _signInManager.SignOutAsync();

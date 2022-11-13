@@ -4,6 +4,10 @@ using students.Data;
 using students.Models;
 using students.IServices;
 using students.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,18 @@ builder.Services.AddDbContext<StudentContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnection"));
 });
 builder.Services.AddIdentity<userAuth, IdentityRole>().AddEntityFrameworkStores<StudentContext>().AddDefaultTokenProviders(); ;
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddMvc().AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix);
+builder.Services.Configure<RequestLocalizationOptions>(options => {
+    var supportedLanguages = new[]
+    {
+    new CultureInfo("en"),
+    new CultureInfo("ar"),
+    };
+    options.DefaultRequestCulture = new RequestCulture(culture: "ar", uiCulture: "ar");
+    options.SupportedCultures = supportedLanguages;
+    options.SupportedUICultures = supportedLanguages;
+});
 builder.Services.AddTransient<IDbInit,DbInit>();
 builder.Services.AddScoped<students.IServices.IFile, students.Services.Files>();
 builder.Services.AddSession(options => {
@@ -47,6 +63,8 @@ app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+var langOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(langOptions.Value);
 app.UseAuthentication();
 app.UseAuthorization();
 

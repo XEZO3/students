@@ -26,7 +26,7 @@ namespace students.Controllers
             
             
             var cartitem = _context.Cart.Include(x => x.cartItem).ThenInclude(x => x.Courses).FirstOrDefault(x => x.UserId == userId)?.cartItem.ToList();
-            cartitem = cartitem == null ? new List<cartItem> : cartitem;
+            cartitem = (cartitem == null )? new List<cartItem>() : cartitem;
             if (isajax)
             {
 
@@ -101,7 +101,7 @@ namespace students.Controllers
                 _context.UserCourses.Add(usercourses);
                 _context.cartItem.Remove(item);
             }
-            
+            HttpContext.Session.SetInt32("cart", 0);
             _context.SaveChanges();
             return RedirectToAction("index");
         }

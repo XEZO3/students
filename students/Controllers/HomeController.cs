@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using students.Data;
 using students.Models;
+using System;
 using System.Diagnostics;
 
 namespace students.Controllers
@@ -15,9 +18,10 @@ namespace students.Controllers
         private readonly StudentContext _context;
         private readonly SignInManager<userAuth> _signInManager;
         private readonly UserManager<userAuth> _UserManager;
-
-        public HomeController(ILogger<HomeController> logger, StudentContext context, SignInManager<userAuth> signInManager, UserManager<userAuth> userManager)
+        private readonly IStringLocalizer<HomeController> _localizer;
+        public HomeController(ILogger<HomeController> logger, StudentContext context, SignInManager<userAuth> signInManager, UserManager<userAuth> userManager, IStringLocalizer<HomeController> localizer)
         {
+            _localizer = localizer;
             _logger = logger;
             _context = context;
             _signInManager = signInManager;
@@ -33,7 +37,7 @@ namespace students.Controllers
                  count = (caritem == null) ? 0 :caritem.cartItem.Count();
             }
             List<Courses> courses = _context.Courses.OrderByDescending(X => X.Id).Take(3).ToList();
-            
+            var zez = _localizer["welcome"];
             HttpContext.Session.SetInt32("cart", (int)count);
             return View(courses);
         }
@@ -42,7 +46,14 @@ namespace students.Controllers
         {
             return View();
         }
-
+        public IActionResult setlang(string culture,string returnUrl) {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1)}
+                );
+            return LocalRedirect(returnUrl);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
