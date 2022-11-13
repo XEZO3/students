@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Resources\Controllers\" />
     <Folder Include="wwwroot\images\courses\" />
     <Folder Include="wwwroot\images\main\" />
   </ItemGroup>

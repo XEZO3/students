@@ -18,8 +18,8 @@ namespace students.Controllers
         private readonly StudentContext _context;
         private readonly SignInManager<userAuth> _signInManager;
         private readonly UserManager<userAuth> _UserManager;
-        private readonly IStringLocalizer<HomeController> _localizer;
-        public HomeController(ILogger<HomeController> logger, StudentContext context, SignInManager<userAuth> signInManager, UserManager<userAuth> userManager, IStringLocalizer<HomeController> localizer)
+        private readonly IStringLocalizer<SharedResources> _localizer;
+        public HomeController(ILogger<HomeController> logger, StudentContext context, SignInManager<userAuth> signInManager, UserManager<userAuth> userManager, IStringLocalizer<SharedResources> localizer)
         {
             _localizer = localizer;
             _logger = logger;
