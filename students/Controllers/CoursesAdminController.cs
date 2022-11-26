@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -6,16 +7,20 @@ using students.Data;
 using students.IServices;
 using students.Models;
 using students.Services;
+using System.Globalization;
 
 namespace students.Controllers
 {
     public class CoursesAdminController : Controller
     {
         private readonly StudentContext _context;
+        private readonly UserManager<userAuth> _UserManager;
         private readonly IFile _file;
-        public CoursesAdminController(StudentContext context,IFile files)
+        private readonly CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
+        public CoursesAdminController(StudentContext context,IFile files, UserManager<userAuth> UserManager)
         {
             _context = context;
+            _UserManager = UserManager;
             _file = files;  
         }
         // GET: CoursesAdminController
@@ -35,7 +40,7 @@ namespace students.Controllers
         public ActionResult Create()
         {
             List<Category> category = _context.Categories.ToList();
-            ViewBag.CategoryId = new SelectList(category, nameof(Category.Id), nameof(Category.Name));
+            ViewBag.CategoryId = new SelectList(category, nameof(Category.Id), nameof(Category.Name_en));
             return View();
         }
 
@@ -50,6 +55,7 @@ namespace students.Controllers
                 collection.CreatDate = DateTime.Now;
                 var file = HttpContext.Request.Form.Files;
                 collection.ImageUrl = _file.uploadfile(file);
+                collection.CreaterId = _UserManager.GetUserId(User);
                 _context.Courses.Add(collection);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,7 +71,7 @@ namespace students.Controllers
         {
             Courses course = _context.Courses.FirstOrDefault(c => c.Id == id);
             List<Category> category = _context.Categories.ToList();
-            ViewBag.CategoryId = new SelectList(category, nameof(Category.Id), nameof(Category.Name));
+            ViewBag.CategoryId = new SelectList(category, nameof(Category.Id), nameof(Category.Name_en));
             return View(course);
         }
 

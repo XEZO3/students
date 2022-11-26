@@ -12,8 +12,8 @@ using students.Data;
 namespace students.Migrations
 {
     [DbContext(typeof(StudentContext))]
-    [Migration("20221110231416_add_courses_image")]
-    partial class add_courses_image
+    [Migration("20221125181005_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -282,7 +282,7 @@ namespace students.Migrations
                     b.ToTable("cartItem");
                 });
 
-            modelBuilder.Entity("students.Models.Courses", b =>
+            modelBuilder.Entity("students.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,6 +292,36 @@ namespace students.Migrations
 
                     b.Property<DateTime>("CreatDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("students.Models.Courses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreaterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -316,7 +346,73 @@ namespace students.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreaterId");
+
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("students.Models.CoursesVideo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CoursesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("videoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoursesId");
+
+                    b.ToTable("CoursesVideo");
+                });
+
+            modelBuilder.Entity("students.Models.UserCourses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CoursesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoursesId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("students.Models.userAuth", b =>
@@ -419,9 +515,63 @@ namespace students.Migrations
                     b.Navigation("cart");
                 });
 
+            modelBuilder.Entity("students.Models.Courses", b =>
+                {
+                    b.HasOne("students.Models.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("students.Models.userAuth", "userAuth")
+                        .WithMany("Courses")
+                        .HasForeignKey("CreaterId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("category");
+
+                    b.Navigation("userAuth");
+                });
+
+            modelBuilder.Entity("students.Models.CoursesVideo", b =>
+                {
+                    b.HasOne("students.Models.Courses", "courses")
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("courses");
+                });
+
+            modelBuilder.Entity("students.Models.UserCourses", b =>
+                {
+                    b.HasOne("students.Models.Courses", "courses")
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("students.Models.userAuth", "userAuth")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("courses");
+
+                    b.Navigation("userAuth");
+                });
+
             modelBuilder.Entity("students.Models.cart", b =>
                 {
                     b.Navigation("cartItem");
+                });
+
+            modelBuilder.Entity("students.Models.userAuth", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CoursesVideo>
+<div class="container-fluid min-vh-100">
+            <div class="row min-vh-100" >
+                <div class="col-12 col-md-10 col-small-12" style="background-color: white">
+                 <div class="container-fluid h-100 mt-1">
+                  <div class="row  justify-content-center" style="height: 70%;background-color: #746A69;">
+                    <iframe style="width: 85%;" src="https://www.youtube.com/embed/T-l47RFCK_g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                  <div class="row bg-light" style="height: 30%;">
+                    <span style="font-size: 30px;">About this course</span>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur hic quasi ratione ipsam nulla, distinctio voluptatibus maxime natus libero tempore culpa nostrum, deserunt saepe quas ut voluptates neque dolore quos.</p>
+                  </div>
+                 </div>
+                </div>
+                <div class="col-12 col-md-2  col-small-12" style="background-color: #ECF7FB;" >
+                  <div class="container-fluid mt-2">
+                    <div class="row" >
+                      <div class="row mt-2">
+                        <button id="show" class="btn dropdown-toggle">introduction to c#</button>
+                        <div class="row-cards" id="rowcard">
+                        @foreach (var item in Model)
+                        {
+                            <div class="cards" style="width: 100%;">
+                            <input type="checkbox" style="margin-right:1rem;margin-left: 1rem;">
+                            <span style="font-size: 23px;">@item.title</span>
+                            <br>
+                            <i class="fa-solid fa-play ms-3"></i>
+                            <small>51min</small>
+                          </div>
+                        }
+                          
+                         
+                        </div>
+                      </div>
+                      
+                      <div class="row mt-4 ">
+                        <button id="show2" class="btn dropdown-toggle">introduction to c#</button>
+                        <div class="row-cards" id="rowcard2">
+                        
+                         @foreach (var item in Model)
+                        {
+                            <div class="cards" style="width: 100%;">
+                            <input type="checkbox" style="margin-right:1rem;margin-left: 1rem;">
+                            <span style="font-size: 23px;">@item.title</span>
+                            <br>
+                            <i class="fa-solid fa-play ms-3"></i>
+                            <small>51min</small>
+                          </div>
+                        }
+                         
+                        </div>
+                      </div>
+
+                      <div class="row mt-4">
+                        <button id="show3" class="btn dropdown-toggle">introduction to c#</button>
+                        <div class="row-cards" id="rowcard3">
+                        
+                         @foreach (var item in Model)
+                        {
+                            <div class="cards" style="width: 100%;">
+                            <input type="checkbox" style="margin-right:1rem;margin-left: 1rem;">
+                            <span style="font-size: 23px;">@item.title</span>
+                            <br>
+                            <i class="fa-solid fa-play ms-3"></i>
+                            <small>51min</small>
+                          </div>
+                        }
+                         
+                        </div>
+                      </div>
+                      
+
+                      <div class="row mt-4">
+                        <button id="show4" class="btn dropdown-toggle">introduction to c#</button>
+                        <div class="row-cards" id="rowcard4">
+                        
+                          @foreach (var item in Model)
+                        {
+                            <div class="cards" style="width: 100%;">
+                            <input type="checkbox" style="margin-right:1rem;margin-left: 1rem;">
+                            <span style="font-size: 23px;">@item.title</span>
+                            <br>
+                            <i class="fa-solid fa-play ms-3"></i>
+                            <small>51min</small>
+                          </div>
+                        }
+                         
+                        </div>
+                      </div>
+                      
+                    </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+          

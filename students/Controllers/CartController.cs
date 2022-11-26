@@ -38,37 +38,44 @@ namespace students.Controllers
         public int AddToCart(int Id)
         {
             var userId = _UserManager.GetUserId(User);
-            var cart = _context.Cart.Include(x => x.cartItem).FirstOrDefault(x => x.UserId == userId);
-            if (cart == null)
-            {
-                cart = new cart()
+            var userCourses = _context.UserCourses.FirstOrDefault(x=>x.Id == Id && x.UserId == userId );
+            if (userCourses==null) {
+                
+                var cart = _context.Cart.Include(x => x.cartItem).FirstOrDefault(x => x.UserId == userId);
+                if (cart == null)
                 {
-                    UserId = userId,
-                    CreatDate = DateTime.Now,
-                };
-                cart.cartItem = new List<cartItem>() {
+                    cart = new cart()
+                    {
+                        UserId = userId,
+                        CreatDate = DateTime.Now,
+                    };
+                    cart.cartItem = new List<cartItem>() {
                 new cartItem(){ CoursesId = Id,cartId = cart.Id}
                 };
-                _context.Cart.Add(cart);
-                _context.SaveChanges();
-            }
-            else
-            {
-                if (cart.cartItem.FirstOrDefault(x => x.CoursesId == Id) == null)
-                {
-                    cartItem cartitem = new cartItem() { CoursesId = Id, cartId = cart.Id };
-                    _context.cartItem.Add(cartitem);
+                    _context.Cart.Add(cart);
                     _context.SaveChanges();
                 }
                 else
                 {
-                    return 0;
-                }
+                    if (cart.cartItem.FirstOrDefault(x => x.CoursesId == Id) == null)
+                    {
+                        cartItem cartitem = new cartItem() { CoursesId = Id, cartId = cart.Id };
+                        _context.cartItem.Add(cartitem);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        return 0;
+                    }
 
+                }
+                int count = _context.Cart.Include(x => x.cartItem).FirstOrDefault(x => x.UserId == userId).cartItem.Count();
+                HttpContext.Session.SetInt32("cart", count);
+                return count;
             }
-            int count = _context.Cart.Include(x => x.cartItem).FirstOrDefault(x => x.UserId == userId).cartItem.Count();
-            HttpContext.Session.SetInt32("cart", count);
-            return count;
+            else {
+                return 33;
+            }
         }
         public async Task<List<dynamic>> RemoveFromCart(int Id)
         {

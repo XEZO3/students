@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="welcome" xml:space="preserve">
-    <value>مرحبا بك</value>
+  <data name="AboutUs" xml:space="preserve">
+    <value>من نحن</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>ابدا الان</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>دورات اونلاين مجانية</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>المزيد</value>
+  </data>
+  <data name="SmallHomePageText" xml:space="preserve">
+    <value>الان على كود واحد</value>
   </data>
 </root>

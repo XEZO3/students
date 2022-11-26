@@ -7,6 +7,8 @@ namespace students.Models
     public class Courses :Main
     {
         public string Name { get; set; }
+        public string Name_ar { get; set; }
+        public string Name_en { get; set; }
         [ForeignKey("Category")]
         [DisplayName("Category")]
 
@@ -17,5 +19,8 @@ namespace students.Models
         public string ImageUrl { get; set; }
         public decimal Price { get; set; }
         public Category category { get; set; }
+        [ForeignKey("userAuth")]
+        public string? CreaterId { get; set; }
+        public userAuth userAuth { get; set; }
     }
 }

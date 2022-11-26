@@ -54,6 +54,7 @@ namespace students.Services
             }
             if (!_context.Courses.Any()) {
                 Category category = _context.Categories.FirstOrDefault();
+                userAuth user = _context.Users.FirstOrDefault();
                 List<Courses> courses = new List<Courses>()
                 {
                     new Courses(){
@@ -62,7 +63,10 @@ namespace students.Services
                     Duration = 5,
                     Description = "full stack development",
                     Name = "asp full stack",
+                    Name_ar = "asp full stack",
+                    Name_en = "ar",
                     CategoryId = category.Id,
+                    CreaterId = user.Id ,
                     ImageUrl = "python.png"
                     },
                     new Courses(){
@@ -71,7 +75,10 @@ namespace students.Services
                     Duration = 5,
                     Description = "full stack development",
                     Name = "asp full stack",
+                    Name_ar = "asp full stack",
+                    Name_en = "ar",
                     CategoryId = category.Id,
+                    CreaterId = user.Id ,
                     ImageUrl = "python.png"
                     },
                     new Courses(){
@@ -80,9 +87,12 @@ namespace students.Services
                     Duration = 5,
                     Description = "full stack development",
                     Name = "asp full stack",
+                    Name_ar = "asp full stack",
+                    Name_en = "ar,
                     CategoryId = category.Id,
+                    CreaterId = user.Id ,
                     ImageUrl = "python.png"
-                    }
+                    },
                 };
                 _context.Courses.AddRange(courses);
                 _context.SaveChanges();

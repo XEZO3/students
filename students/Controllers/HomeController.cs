@@ -31,13 +31,15 @@ namespace students.Controllers
         public IActionResult Index()
         {
             var count = 0;
+            
             if (_signInManager.IsSignedIn(User))
             {
                 var caritem = _context.Cart.Include(x => x.cartItem).FirstOrDefault(x => x.UserId == _UserManager.GetUserId(User));
                  count = (caritem == null) ? 0 :caritem.cartItem.Count();
             }
-            List<Courses> courses = _context.Courses.OrderByDescending(X => X.Id).Take(3).ToList();
-            var zez = _localizer["welcome"];
+            List<Courses> courses = _context.Courses.ToList();
+            //var ss = courses.First().GetType().GetProperty("NameAr").GetValue(courses.First());
+           // var zez = _localizer["welcome"];
             HttpContext.Session.SetInt32("cart", (int)count);
             return View(courses);
         }

@@ -295,6 +295,14 @@ namespace students.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name_ar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_en")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
@@ -317,6 +325,10 @@ namespace students.Migrations
                     b.Property<DateTime>("CreatDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreaterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -332,6 +344,14 @@ namespace students.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name_ar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_en")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -341,6 +361,8 @@ namespace students.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreaterId");
 
                     b.ToTable("Courses");
                 });
@@ -363,6 +385,14 @@ namespace students.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("title_ar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("title_en")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -515,7 +545,15 @@ namespace students.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("students.Models.userAuth", "userAuth")
+                        .WithMany("Courses")
+                        .HasForeignKey("CreaterId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
                     b.Navigation("category");
+
+                    b.Navigation("userAuth");
                 });
 
             modelBuilder.Entity("students.Models.CoursesVideo", b =>
@@ -551,6 +589,11 @@ namespace students.Migrations
             modelBuilder.Entity("students.Models.cart", b =>
                 {
                     b.Navigation("cartItem");
+                });
+
+            modelBuilder.Entity("students.Models.userAuth", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

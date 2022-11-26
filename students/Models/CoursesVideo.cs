@@ -7,6 +7,8 @@ namespace students.Models
         [ForeignKey("Courses")]
         public int CoursesId { get; set; }
         public string title { get; set; }
+        public string title_ar { get; set; }
+        public string title_en { get; set; }
         public string videoUrl { get; set; }
 
         public Courses courses { get; set; }

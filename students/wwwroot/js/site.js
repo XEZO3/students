@@ -3,7 +3,9 @@
 $(window).on("load", function () {
     $('.loader').addClass("complete")
     $('.load').attr("src", "")
-    
+    $('#rowcard').hide();
+    $('#rowcard3').hide();
+    $('#rowcard4').hide();
 });
 // Write your JavaScript code.
 function AddToCart(courseId) {
@@ -14,6 +16,8 @@ function AddToCart(courseId) {
             if (data == 0) {
                 alert("you already add this course");
 
+            } else if (data == 33) {
+                alert("you already have this course");
             } else {
                 document.getElementById("counter").innerHTML = data;
             }
@@ -58,3 +62,17 @@ function filterCourses(name) {
         }
     })
 }
+
+    $("#show").click(function(){
+        $("#rowcard").toggle()
+    })
+    $("#show2").click(function(){
+        $("#rowcard2").toggle()
+    })
+    $("#show3").click(function(){
+        $("#rowcard3").toggle()
+    })
+    $("#show4").click(function(){
+        $("#rowcard4").toggle()
+    })
+

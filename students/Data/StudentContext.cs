@@ -27,8 +27,14 @@ namespace students.Data
             //LAPTOP-BFFJ9SQ9
             builder.UseSqlServer("Server=DESKTOP-JD76U9C;Database=Students;Trusted_Connection=True");
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Courses>().HasOne(x => x.userAuth).WithMany(z => z.Courses).HasForeignKey(p=>p.CreaterId);
+            builder.Entity<userAuth>().HasMany(x => x.Courses).WithOne(z => z.userAuth).OnDelete(DeleteBehavior.SetNull).HasForeignKey(p => p.CreaterId);
+            base.OnModelCreating(builder);
+        }
         //public DbSet<OrderItem> orderItems { get; set; }
 
-       
+
     }
 }
